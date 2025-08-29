@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UMEDA — Магазин женской одежды</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <button id="burger" class="burger" aria-label="menu" aria-expanded="false">☰</button>
+      <div class="brand">UMEDA</div>
+      <nav class="nav" id="nav">
+        <a href="#collections">Коллекции</a>
+        <a href="#new">Новинки</a>
+        <a href="#about">О нас</a>
+        <button id="closeNav" class="close-nav" aria-label="close menu">✕</button>
+      </nav>
+      <div class="actions">
+        <button id="searchToggle" class="icon" aria-label="search">🔍</button>
+        <button id="favBtn" class="icon" aria-label="favorites">♡<span id="favCount" class="badge">0</span></button>
+        <button id="cartBtn" class="icon" aria-label="cart">🛍<span id="cartCount" class="badge">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <small class="badge">Новая коллекция · AW 2025</small>
+          <h1>UMEDA — женственная эстетика <span class="accent">каждый день</span></h1>
+          <p class="lead">Современный минимализм, изящные линии и материалы премиум-качества.</p>
+          <div class="hero-cta">
+            <button class="btn" data-filter="Платья">Смотреть платья</button>
+            <button class="btn btn-outline" data-filter="all">Вся коллекция</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1200&auto=format&fit=crop" alt="Hero" />
+        </div>
+      </div>
+    </section>
+
+    <section id="collections" class="container collections">
+      <h2>Коллекции</h2>
+      <div class="grid collections-grid">
+        <div class="col-card">Платья</div>
+        <div class="col-card">Верхняя одежда</div>
+        <div class="col-card">Костюмы</div>
+        <div class="col-card">Аксессуары</div>
+      </div>
+    </section>
+
+    <section id="new" class="container products-section">
+      <div class="section-head">
+        <h2>Новинки</h2>
+        <div class="controls">
+          <div class="search-wrap" id="searchWrap" hidden>
+            <input id="search" placeholder="Поиск по товарам..." aria-label="Поиск по товарам" />
+            <button id="clearSearch" class="small">✕</button>
+          </div>
+          <div class="filters">
+            <select id="categoryFilter" aria-label="Категория">
+              <option value="">Все категории</option>
+              <option>Платья</option><option>Верхняя одежда</option><option>Костюмы</option><option>Блузы</option><option>Джинсы</option><option>Аксессуары</option>
+            </select>
+            <select id="sizeFilter" aria-label="Размер">
+              <option value="">Размер</option>
+              <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
+            </select>
+            <input id="priceMin" type="number" placeholder="Мин €" min="0" class="price-input" />
+            <input id="priceMax" type="number" placeholder="Макс €" min="0" class="price-input" />
+            <select id="sort" aria-label="Сортировка">
+              <option value="default">Сортировка</option>
+              <option value="price-asc">Цена ↑</option>
+              <option value="price-desc">Цена ↓</option>
+              <option value="name-asc">Название A–Z</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="products" class="grid products-grid" aria-live="polite">
+        <!-- products rendered by JS -->
+      </div>
+
+      <div id="emptyMsg" class="empty">Ничего не найдено. Попробуйте изменить фильтры.</div>
+    </section>
+
+    <section id="newsletter" class="container newsletter">
+      <div>
+        <h3>-10% на первый заказ</h3>
+        <p>Подпишитесь на рассылку UMEDA: тренды, предзаказы и закрытые распродажи.</p>
+      </div>
+      <form id="newsletterForm" class="newsletter-form">
+        <input type="email" placeholder="Ваш email" required />
+        <button class="btn">Подписаться</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="about">
+    <div class="container footer-inner">
+      <div class="brand-small">UMEDA</div>
+      <div class="footer-links">
+        <a href="#">О нас</a>
+        <a href="#">Доставка</a>
+        <a href="#">Контакты</a>
+      </div>
+      <div class="copyright">© UMEDA — 2025</div>
+    </div>
+  </footer>
+
+  <!-- Templates & Overlays -->
+
+  <template id="productTpl">
+    <article class="card" tabindex="0">
+      <div class="card-media">
+        <img src="" alt="" />
+        <button class="fav icon small" aria-label="Добавить в избранное">♡</button>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title"></h4>
+        <div class="card-cat"></div>
+        <div class="card-row">
+          <div class="price"></div>
+          <button class="btn small add-btn">В корзину</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <div id="cartDrawer" class="drawer" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h4>Корзина</h4>
+        <button id="closeCart" class="icon">✕</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="drawer-footer">
+        <div class="totals">
+          <div>Итого:</div><div id="cartTotal">€0</div>
+        </div>
+        <button id="checkoutBtn" class="btn">Оформить заказ</button>
+      </div>
+    </div>
+    <div class="drawer-backdrop" id="cartBackdrop"></div>
+  </div>
+
+  <div id="quickView" class="modal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true">
+      <button id="closeQuick" class="icon close-quick">✕</button>
+      <div class="modal-content">
+        <img id="quickImg" src="" alt="" />
+        <div class="modal-body">
+          <h3 id="quickTitle"></h3>
+          <div id="quickCat" class="muted"></div>
+          <p id="quickPrice" class="price-large"></p>
+          <p id="quickDesc" class="muted">Короткое описание изделия. Высокое качество тканей, аккуратная отделка.</p>
+          <div class="size-list" id="quickSizes"></div>
+          <div class="modal-actions">
+            <button id="quickAdd" class="btn">Добавить в корзину</button>
+            <button id="quickFav" class="btn btn-outline">❤ В избранное</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
